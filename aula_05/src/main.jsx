@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free';
 
-import ReactDOM from 'react-dom/client';
-import React, {useEffect} from 'react';
+import { createRoot } from 'react-dom';
+import React from 'react';
 
 class App extends React.Component {
   // window.navigator.geolocation.getCurrentPosition((position) => {
@@ -27,7 +27,7 @@ class App extends React.Component {
     'Primavera': 'tree',
   };
 
-  obterFuncao = (dataAtual, latitude) => {
+  obterEstacao = (dataAtual, latitude) => {
     const anoAtual = dataAtual.getFullYear();
 
     // Datas de cada estacao, com mes comecando a partir de 0
@@ -53,17 +53,37 @@ class App extends React.Component {
     }
   };
 
+  obterLocalizacao = () => {
+    window.navigator.geolocation.getCurrentPosition( 
+    (posicao) => {
+        const dataAtual = new Date();
+        const estacaoClimatica = this.obterEstacao(dataAtual, posicao.coords.latitude);
+        const nomeIcone = this.icones(estacaoClimatica);
+
+        this.setState({
+          latitude: posicao.coords.latitude,
+          longitude: posicao.coords.longitude,
+          estacao: estacaoClimatica,
+          icone: nomeIcone,
+          data: dataAtual
+        })
+      },
+
+      (erro) => {}
+    )
+  }
+
   render() {
     return (
       <div>
         oi
       </div>
     );
-  }
+}
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
