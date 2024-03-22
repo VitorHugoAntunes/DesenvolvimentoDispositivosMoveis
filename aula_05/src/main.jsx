@@ -16,7 +16,8 @@ class App extends React.Component{
       longitude: null,
       estacao: null,
       data: null,
-      icone: null
+      icone: null,
+      mensagemDeErro: null
     }
   }
 
@@ -74,6 +75,10 @@ class App extends React.Component{
       },
       //caso contrário (usuário negou, por exemplo)
       (erro) => {
+        this.setState({
+          mensagemDeErro: 'Não foi possível obter a sua localização'
+        })
+        
         console.log(erro);
       }
     )
@@ -101,7 +106,8 @@ class App extends React.Component{
                   <p className="text-center">
                     {
                       this.state.latitude ? `Coordenadasa: ${this.state.latitude}, ${this.state.longitude}.
-                      Data: ${this.state.data}` : 
+                      Data: ${this.state.data}` :
+                      this.state.mensagemDeErro ? `${this.state.mensagemDeErro}` :
                       `Clique no botao para saber a sua estacao climatica...`
                     }
                   </p>
