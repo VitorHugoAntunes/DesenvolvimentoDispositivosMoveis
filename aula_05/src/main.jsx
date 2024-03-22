@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 import { createRoot } from 'react-dom';
 import React from 'react';
@@ -23,7 +23,7 @@ class App extends React.Component{
   icones = {
     'Verão': 'sun',
     'Inverno': 'snowflake',
-    'Outono': 'canadian-maple-leaf',
+    'Outono': 'leaf',
     'Primavera': 'tree'
 
   }
@@ -74,7 +74,7 @@ class App extends React.Component{
       },
       //caso contrário (usuário negou, por exemplo)
       (erro) => {
-
+        console.log(erro);
       }
     )
   }
@@ -85,8 +85,36 @@ class App extends React.Component{
 
   render() {
     return (
-      <div>
-        {this.state.estacao}
+      <div className='container mt-2'>
+        <div className='row justify-content'>
+          <div className="col-sm-12 col-md-8">
+            <div className="card">
+              <div className="card-body">
+                <div className="d-flex align-items-center border rounded mb-2"
+                  style={{height: '6rem'}}
+                >
+                 <i className={`fa-solid fa-5x fa-${this.state.icone}`}></i>
+                  <p className="w-75 ms-3 text-center fs-1">{this.state.estacao}</p>
+
+                </div>
+                <div>
+                  <p className="text-center">
+                    {
+                      this.state.latitude ? `Coordenadasa: ${this.state.latitude}, ${this.state.longitude}.
+                      Data: ${this.state.data}` : 
+                      `Clique no botao para saber a sua estacao climatica...`
+                    }
+                  </p>
+                </div>
+                <button className='btn btn-outline-primary w-100 mt-2'
+                  onClick={this.obterLocalizacao}
+                >
+                  Qual a minha estacao?
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
 }
