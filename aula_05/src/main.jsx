@@ -9,17 +9,13 @@ class App extends React.Component{
   //   console.log(position)
   // })
 
-  constructor(props){
-    super(props)
-    this.state = {
+  state = {
       latitude: null,
       longitude: null,
       estacao: null,
       data: null,
       icone: null,
       mensagemDeErro: null
-    }
-    console.log('construtor')
   }
 
   componentDidMount(){
@@ -108,7 +104,7 @@ class App extends React.Component{
                     className="d-flex align-items-center border rounded mb-2"
                     style={{height: '6rem'}}>
                     {/* icone */}
-                    <i className={`fa-solid fa-5x fa-${this.state.icone}`}></i>
+                    <i className={`fa-solid fa-5x fa-${this.state.icone} ml-5`}></i>
                     <p className="w-75 ms-3 text-center fs-1">{this.state.estacao}</p>
                   </div>
                   <div>
